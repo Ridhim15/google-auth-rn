@@ -1,22 +1,13 @@
 {
 	"expo": {
-		"name": "google-auth-rn",
-		"slug": "google-auth-rn",
+		"name": "Parvaah",
+		"slug": "Parvaah",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "yourscheme",
+		"scheme": "parvaah",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			}
-		},
 		"web": {
 			"bundler": "metro",
 			"output": "static",
@@ -32,10 +23,41 @@
 					"resizeMode": "contain",
 					"backgroundColor": "#ffffff"
 				}
+			],
+			["@react-native-google-signin/google-signin"],
+			[
+				"expo-camera",
+				{
+					"cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+				}
 			]
 		],
 		"experiments": {
 			"typedRoutes": true
+		},
+		"android": {
+			"package": "com.ridhim.ParvaahGeractricCareMobileApplication",
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/icons/icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"intentFilters": [
+				{
+					"action": "VIEW",
+					"autoVerify": true,
+					"data": [
+						{
+							"scheme": "parvaah",
+							"host": "login-callback"
+						}
+					],
+					"category": ["BROWSABLE", "DEFAULT"]
+				}
+			]
+		},
+		"ios": {
+			"bundleIdentifier": "com.ridhim.ParvaahGeractricCareMobileApplication",
+			"supportsTablet": true
 		}
 	}
 }

@@ -25,13 +25,15 @@ export default function Login() {
 	})
 
 	async function signInWithGoogle() {
+		console.log("Sign in with Google button clicked")
 		try {
 			setLoading(true)
+			console.log("Starting Google OAuth process...")
 			const { data, error } = await supabase.auth.signInWithOAuth({
 				provider: "google",
 				options: {
 					redirectTo: redirectUrl,
-					skipBrowserRedirect: false, // Change this to false
+					skipBrowserRedirect: false,
 					queryParams: {
 						access_type: "offline",
 						prompt: "consent",
@@ -39,28 +41,62 @@ export default function Login() {
 				},
 			})
 
-			if (error) throw error
+			if (error) {
+				console.error("Error during OAuth setup:", error)
+				throw error
+			}
 
+			console.log("OAuth URL generated:", data?.url)
 			if (data?.url) {
+				console.log("Opening auth session in browser...")
 				const result = await WebBrowser.openAuthSessionAsync(data.url, redirectUrl, {
 					showInRecents: true,
 					preferEphemeralSession: true,
 				})
 
+				console.log("Auth session result:", result)
 				if (result.type === "success") {
-					const {
-						data: { session },
-						error,
-					} = await supabase.auth.getSession()
-					if (error) throw error
-					if (session) {
-						router.replace("/(tabs)")
+					console.log("Browser authentication successful, getting session...")
+
+					// Extract tokens from the URL
+					const params = new URLSearchParams(result.url.split("#")[1])
+					const access_token = params.get("access_token")
+					const refresh_token = params.get("refresh_token")
+
+					if (access_token) {
+						console.log("Got access token, setting session...")
+						const {
+							data: { session },
+							error: sessionError,
+						} = await supabase.auth.setSession({
+							access_token,
+							refresh_token: refresh_token || undefined,
+						})
+
+						if (sessionError) {
+							console.error("Error setting session:", sessionError)
+							throw sessionError
+						}
+
+						if (session) {
+							console.log("Session successfully created:", session)
+							router.replace("/(tabs)")
+						} else {
+							console.log("No session created after setting tokens")
+						}
+					} else {
+						console.log("No access token found in callback URL")
 					}
+				} else {
+					console.log("Browser authentication was not successful:", result.type)
 				}
+			} else {
+				console.log("No OAuth URL was generated")
 			}
 		} catch (error) {
-			console.error("Error:", error)
+			console.error("Error during login process:", error)
 		} finally {
+			console.log("Login process completed, loading state reset")
 			setLoading(false)
 		}
 	}

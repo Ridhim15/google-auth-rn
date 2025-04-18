@@ -38,7 +38,7 @@
 		"android": {
 			"package": "com.ridhim.ParvaahGeractricCareMobileApplication",
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/icons/icon.png",
+				"foregroundImage": "./assets/icons/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
 			"intentFilters": [
@@ -57,7 +57,8 @@
 		},
 		"ios": {
 			"bundleIdentifier": "com.ridhim.ParvaahGeractricCareMobileApplication",
-			"supportsTablet": true
+			"supportsTablet": true,
+			"icon": "./assets/images/adaptive-icon.png"
 		}
 	}
 }

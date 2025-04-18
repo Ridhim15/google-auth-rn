@@ -4,22 +4,22 @@
 		"slug": "Parvaah",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/images/icon.png",
+		"icon": "./assets/icons/adaptive-icon.png",
 		"scheme": "parvaah",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"web": {
 			"bundler": "metro",
 			"output": "static",
-			"favicon": "./assets/images/favicon.png"
+			"favicon": "./assets/icons/adaptive-icon.png"
 		},
 		"plugins": [
 			"expo-router",
 			[
 				"expo-splash-screen",
 				{
-					"image": "./assets/images/splash-icon.png",
-					"imageWidth": 200,
+					"image": "./assets/icons/splash-icon.png",
+					"imageWidth": 250,
 					"resizeMode": "contain",
 					"backgroundColor": "#ffffff"
 				}

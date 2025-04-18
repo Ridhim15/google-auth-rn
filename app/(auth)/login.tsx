@@ -4,6 +4,7 @@ import { supabase } from "../../lib/supabase"
 import * as WebBrowser from "expo-web-browser"
 import { router } from "expo-router"
 import { makeRedirectUri } from "expo-auth-session"
+import LoginScreen from "../../components/login-screen"
 
 // Add this at the top of your component
 WebBrowser.maybeCompleteAuthSession()
@@ -70,7 +71,7 @@ export default function Login() {
 							error: sessionError,
 						} = await supabase.auth.setSession({
 							access_token,
-							refresh_token: refresh_token || undefined,
+							refresh_token: refresh_token || "",
 						})
 
 						if (sessionError) {
@@ -80,7 +81,18 @@ export default function Login() {
 
 						if (session) {
 							console.log("Session successfully created:", session)
-							router.replace("/(tabs)")
+							// Check if user has a role
+							const { data: profile } = await supabase
+								.from("user_profiles")
+								.select("role")
+								.eq("user_id", session.user.id)
+								.single()
+
+							if (!profile?.role) {
+								router.replace("/(auth)/roles")
+							} else {
+								router.replace("/(tabs)")
+							}
 						} else {
 							console.log("No session created after setting tokens")
 						}
@@ -101,15 +113,7 @@ export default function Login() {
 		}
 	}
 
-	return (
-		<View style={styles.container}>
-			<Button
-				title={loading ? "Loading..." : "Sign in with Google"}
-				onPress={signInWithGoogle}
-				disabled={loading}
-			/>
-		</View>
-	)
+	return <LoginScreen signInWithGoogle={signInWithGoogle} loading={loading} />
 }
 
 const styles = StyleSheet.create({

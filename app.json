@@ -1,17 +1,22 @@
 {
 	"expo": {
 		"name": "Parvaah",
-		"slug": "Parvaah",
+		"slug": "parvaah",
+		"scheme": "parvaah",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icons/adaptive-icon.png",
-		"scheme": "parvaah",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"web": {
 			"bundler": "metro",
 			"output": "static",
 			"favicon": "./assets/icons/adaptive-icon.png"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "63b32c3a-8cb5-4404-98a6-b0d7532bff9a"
+			}
 		},
 		"plugins": [
 			"expo-router",
@@ -24,7 +29,6 @@
 					"backgroundColor": "#ffffff"
 				}
 			],
-			["@react-native-google-signin/google-signin"],
 			[
 				"expo-camera",
 				{
@@ -53,12 +57,16 @@
 					],
 					"category": ["BROWSABLE", "DEFAULT"]
 				}
-			]
+			],
+			"permissions": ["android.permission.CAMERA", "android.permission.RECORD_AUDIO"]
 		},
 		"ios": {
 			"bundleIdentifier": "com.ridhim.ParvaahGeractricCareMobileApplication",
 			"supportsTablet": true,
-			"icon": "./assets/images/adaptive-icon.png"
+			"icon": "./assets/images/adaptive-icon.png",
+			"infoPlist": {
+				"ITSAppUsesNonExemptEncryption": false
+			}
 		}
 	}
 }

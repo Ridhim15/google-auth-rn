@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin"
 
 interface LoginScreenProps {
 	signInWithGoogle: () => Promise<void>
@@ -38,12 +37,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ signInWithGoogle, loading }) 
 			</View>
 
 			<View style={styles.socialContainer}>
-				<GoogleSigninButton
-					style={{ flex: 1, height: 48 }}
-					size={GoogleSigninButton.Size.Wide}
-					color={GoogleSigninButton.Color.Dark}
-					onPress={signInWithGoogle}
-				/>
+				<TouchableOpacity style={styles.customGoogleButton} onPress={signInWithGoogle}>
+					<Image source={require("../assets/logo/google-icon.png")} style={styles.googleIcon} />
+					<Text style={styles.googleButtonText}>Sign in with Google</Text>
+				</TouchableOpacity>
 			</View>
 
 			<Text style={styles.footerText}>
@@ -122,21 +119,29 @@ const styles = StyleSheet.create({
 	},
 	socialContainer: {
 		flexDirection: "row",
-		justifyContent: "space-between",
+		justifyContent: "center",
 		width: "100%",
 		marginBottom: 20,
 	},
-	socialButton: {
-		flex: 1,
-		padding: 12,
-		marginHorizontal: 5,
-		borderRadius: 8,
+	customGoogleButton: {
+		flexDirection: "row",
 		alignItems: "center",
+		backgroundColor: "#fff",
+		borderWidth: 1,
+		borderColor: "#ccc",
+		borderRadius: 8,
+		paddingVertical: 10,
+		paddingHorizontal: 15,
 	},
-	socialButtonText: {
-		color: "white",
-		fontWeight: "bold",
+	googleIcon: {
+		width: 24,
+		height: 24,
+		marginRight: 10,
+	},
+	googleButtonText: {
 		fontSize: 16,
+		color: "#333",
+		fontWeight: "bold",
 	},
 	footerText: {
 		fontSize: 14,

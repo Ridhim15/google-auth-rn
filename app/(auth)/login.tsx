@@ -80,7 +80,7 @@ export default function Login() {
 						}
 
 						if (session) {
-							console.log("Session successfully created:", session)
+							console.log("Session successfully created:")
 							// Check if user has a role
 							const { data: profile } = await supabase
 								.from("user_profiles")

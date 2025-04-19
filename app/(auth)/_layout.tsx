@@ -8,6 +8,7 @@ export default function AuthLayout() {
 				options={{
 					headerShown: true,
 					headerTitle: "Authentication",
+					headerTitleAlign: "center",
 				}}
 			/>
 		</Stack>

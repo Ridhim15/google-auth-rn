@@ -11,7 +11,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ signInWithGoogle, loading }) 
 
 	return (
 		<View style={styles.container}>
-			<Image source={require("../assets/icons/splash-icon.png")} style={styles.logo} />
+			<Image source={require("@assets/icons/splash-icon.png")} style={styles.logo} />
 			<Text style={styles.title}>Welcome to Parvaah!</Text>
 
 			<Text style={styles.subtitle}>Please enter your number</Text>

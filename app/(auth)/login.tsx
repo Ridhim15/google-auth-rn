@@ -54,8 +54,6 @@ export default function Login() {
 					showInRecents: true,
 					preferEphemeralSession: true,
 				})
-
-				console.log("Auth session result:", result)
 				if (result.type === "success") {
 					console.log("Browser authentication successful, getting session...")
 
